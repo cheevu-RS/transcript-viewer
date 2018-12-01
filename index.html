@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Transcript Viewer</title>   
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body ng-app="myApp" ng-controller="controller" ng-init="val='play'" ng-init="isPlaying = false" >
+<md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2 md-truncate flex>Transcript Viewer</h2>
+    </div>
+</md-toolbar>
+<br>
+<md-content id="blue" flex layout-padding layout="column">
+  <div id="blue">
+    <div id="music" layout="row">
+        <div>
+          <br>  <button class="btn" ng-click="playOrpause()">{{val}}</button>
+        </div>
+        <md-progress-linear md-mode="determinate" value="{{progressbar}}"></md-progress-linear>
+        <div>
+            <br><button class="btn" id="stopbtn">stop</button>
+        </div>
+    </div>
+    <br>
+    <div id="matter">
+        {{lastloc}} / {{duration}}
+    </div>  
+    <div class="volume">
+    Volume -- <input type="range" min="1" max="100" value="100" class="slider" id="volRange" > Volume ++
+    </div>
+    <div>
+    <button class='btn' id="mute">Mute</button>
+    </div>
+    <div class="speed">
+    Playback Speed -- <input type="range" min="1" max="400" value="100" class="slider" id="speedRange" > Playback Speed ++
+    </div>
+    <br><br>
+    <div id="mat" ng-repeat="result in trans">
+        <span ng-repeat="result1 in result">
+            <span ng-repeat="(key,value) in result1">
+                <span ng-repeat="val in value" onclick=>
+                    <span ng-repeat="k in val['timestamps']" ng-click="timeSet(k[1])" ng-class="{'colorchange':song.currentTime > k[1]}">
+                        {{k[0]}}
+                    </span>
+                </span>
+            </span>
+        </span>
+    </div>
+</div>
+</md-content>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+<script src="controller.js"></script>
+<script src="assets/json/transcript.js"></script>
+</body>
+</html>
